@@ -1,0 +1,11 @@
+node_modules/
+.env
+.DS_Store
+data/*.json
+!.gitkeep
+terraform.tfstate
+terraform.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+dist/

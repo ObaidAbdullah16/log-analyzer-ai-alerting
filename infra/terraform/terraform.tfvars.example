@@ -1,0 +1,19 @@
+aws_region     = "ap-south-1"
+project_name   = "log-analyzer-ai-alerting"
+domain_name    = "logs.example.com"
+hosted_zone_id = "Z1234567890ABCDE"
+
+container_environment = {
+  ALERT_THRESHOLD_COUNT = "6"
+  ALERT_GROWTH_PERCENT = "250"
+  LLM_MODEL            = "gpt-4o-mini"
+  LLM_API_URL          = "https://api.openai.com/v1/chat/completions"
+}
+
+# Optional but recommended for the AI summary feature:
+# 1. Create a SecureString parameter:
+#    aws ssm put-parameter --name "/log-analyzer/llm-api-key" --type "SecureString" --value "YOUR_KEY"
+# 2. Put that parameter ARN here:
+# ssm_secret_environment = {
+#   LLM_API_KEY = "arn:aws:ssm:ap-south-1:123456789012:parameter/log-analyzer/llm-api-key"
+# }

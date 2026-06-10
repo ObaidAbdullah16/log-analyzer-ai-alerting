@@ -1,0 +1,17 @@
+services:
+  log-analyzer:
+    build: .
+    container_name: log-analyzer-ai-alerting
+    ports:
+      - "8090:8090"
+    environment:
+      PORT: "8090"
+      DATA_DIR: "/app/data"
+      ALERT_THRESHOLD_COUNT: "6"
+      ALERT_GROWTH_PERCENT: "250"
+      LLM_API_KEY: "${LLM_API_KEY:-}"
+      LLM_MODEL: "${LLM_MODEL:-gpt-4o-mini}"
+      LLM_API_URL: "${LLM_API_URL:-https://api.openai.com/v1/chat/completions}"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

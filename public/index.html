@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TraceLens Logs</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Cloud-Native Log Analyzer</p>
+          <h1>TraceLens Logs</h1>
+        </div>
+        <div class="top-actions">
+          <button class="ghost" id="refreshButton" type="button">Refresh</button>
+          <button id="spikeButton" type="button">Generate Spike</button>
+        </div>
+      </header>
+
+      <section class="metrics" id="metrics"></section>
+
+      <section class="dashboard-grid">
+        <section class="panel chart-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Last Hour</p>
+              <h2>Error Trend</h2>
+            </div>
+            <span class="mode-pill" id="llmStatus">LLM</span>
+          </div>
+          <div class="chart" id="chart"></div>
+        </section>
+
+        <aside class="panel ingest-panel">
+          <div class="section-title compact">
+            <div>
+              <p class="eyebrow">Ingest</p>
+              <h2>Send Log</h2>
+            </div>
+          </div>
+          <form id="logForm" class="log-form">
+            <div class="form-row">
+              <label>
+                Service
+                <input name="service" value="orders-api" required />
+              </label>
+              <label>
+                Level
+                <select name="level">
+                  <option value="info">info</option>
+                  <option value="warn">warn</option>
+                  <option value="error" selected>error</option>
+                  <option value="fatal">fatal</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Message
+              <textarea name="message" rows="4" required>HTTP 500: database connection pool exhausted after waiting 3000ms for tenant 7129</textarea>
+            </label>
+            <div class="form-row">
+              <label>
+                Status
+                <input name="statusCode" type="number" value="500" />
+              </label>
+              <label>
+                Region
+                <input name="region" value="ap-south-1" />
+              </label>
+            </div>
+            <button type="submit">Send Log</button>
+          </form>
+        </aside>
+      </section>
+
+      <section class="lower-grid">
+        <section class="panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Similar Errors</p>
+              <h2>Grouped Signals</h2>
+            </div>
+          </div>
+          <div id="groups" class="stack"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Alert Feed</p>
+              <h2>Root Cause Summaries</h2>
+            </div>
+          </div>
+          <div id="alerts" class="stack"></div>
+        </section>
+      </section>
+
+      <section class="panel logs-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Live Stream</p>
+            <h2>Recent Logs</h2>
+          </div>
+          <button class="danger" id="resetButton" type="button">Reset</button>
+        </div>
+        <div id="logs" class="log-stream"></div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
